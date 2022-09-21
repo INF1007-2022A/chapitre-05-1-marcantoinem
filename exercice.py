@@ -3,33 +3,78 @@
 
 
 from typing import List
-
+import math
 
 def convert_to_absolute(number: float) -> float:
-    return 0
+    if number < 0:
+        return -number
+    return number
 
 
 def use_prefixes() -> List[str]:
     prefixes, suffixe = 'JKLMNOPQ', 'ack'
-
-    return [""]
+    name = []
+    for prefixe in prefixes:
+        name.append(prefixe + suffixe)
+    return name
 
 
 def prime_integer_summation() -> int:
-    return 0
+    max = 100
+    primes = [True for _ in range(max+1)]
+    for i in range(2, max // 2):
+        prime = primes[i]
+        if prime:
+            for j in range(2, max // i + 1):
+                primes[i*j] = False
+    sum = 0
+    for i in range(2,100):
+        if primes[i]:
+            sum += i
+    return sum
 
 
 def factorial(number: int) -> int:
-    return 0
+    product = 1
+    for n in range(2,number+1):
+        product *= n
+    return product
 
 
 def use_continue() -> None:
-    pass
+    for i in range(1,11):
+        if i == 5:
+            continue
+        print(i)
 
 
 def verify_ages(groups: List[List[int]]) -> List[bool]:
-    return []
-
+    result = []
+    for group in groups:
+        if len(group) > 10 or len(group) <= 3:
+            result.append(False)
+            continue
+        old = False
+        fifty = False
+        accepted = True
+        for age in group:
+            if age == 25:
+                break
+            elif age < 18:
+                accepted = False
+                break
+            elif age == 50:
+                fifty = True
+                if old:
+                    accepted = False
+                    break
+            elif age > 70:
+                old = True
+                if fifty:
+                    accepted = False
+                    break
+        result.append(accepted)
+    return result
 
 def main() -> None:
     number = -4.325
